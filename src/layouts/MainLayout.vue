@@ -31,7 +31,7 @@
             header
             class='text-grey-8'
           >
-            Essential Links
+            Modulos
           </q-item-label>
           <EssentialLink
             v-for='link in essentialLinks'
@@ -55,10 +55,10 @@ import EssentialLink from 'components/EssentialLink.vue';
 
 const linksData = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'Admin',
+    caption: '',
+    icon: 'admin_panel_settings',
+    link: '/admin'
   },
   {
     title: 'Github',
