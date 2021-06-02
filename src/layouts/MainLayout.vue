@@ -98,17 +98,25 @@ const linksData = [
   }
 ];
 
-import { defineComponent, Ref, ref } from '@vue/composition-api';
-import Login from 'src/uses/Login.vue';
+import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
+import Login from 'src/views/Login.vue';
 import { Cookies } from 'quasar';
 
 export default defineComponent({
   name: 'MainLayout',
   components: { Login, EssentialLink },
   setup() {
+
     const leftDrawerOpen = ref(false);
     const essentialLinks = ref(linksData);
     let logged: Ref<boolean> = ref(false);
+
+    onBeforeMount(() => {
+      let token = Cookies.get('token');
+      if(token != null) {
+        logged.value = true;
+      }
+    });
 
     function onLogged(token: string) {
       logged.value = true;
