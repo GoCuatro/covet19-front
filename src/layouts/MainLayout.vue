@@ -31,7 +31,7 @@
             header
             class='text-grey-8'
           >
-            Essential Links
+            Modulos
           </q-item-label>
           <EssentialLink
             v-for='link in essentialLinks'
@@ -55,10 +55,10 @@ import EssentialLink from 'components/EssentialLink.vue';
 
 const linksData = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'Admin',
+    caption: '',
+    icon: 'admin_panel_settings',
+    link: '/admin'
   },
   {
     title: 'Github',
@@ -98,17 +98,25 @@ const linksData = [
   }
 ];
 
-import { defineComponent, Ref, ref } from '@vue/composition-api';
-import Login from 'src/uses/Login.vue';
+import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
+import Login from 'src/views/Login.vue';
 import { Cookies } from 'quasar';
 
 export default defineComponent({
   name: 'MainLayout',
   components: { Login, EssentialLink },
   setup() {
+
     const leftDrawerOpen = ref(false);
     const essentialLinks = ref(linksData);
     let logged: Ref<boolean> = ref(false);
+
+    onBeforeMount(() => {
+      let token = Cookies.get('token');
+      if(token != null) {
+        logged.value = true;
+      }
+    });
 
     function onLogged(token: string) {
       logged.value = true;

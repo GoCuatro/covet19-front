@@ -25,7 +25,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, Ref, ref } from '@vue/composition-api';
 import { LoginInfo } from 'src/types/LoginInfo';
 import axios from 'axios';
 
@@ -33,11 +33,11 @@ export default defineComponent({
   name: 'Login',
   components: {},
   setup(_, context) {
-    const loginInfo: LoginInfo = ref({
+    const loginInfo: Ref<LoginInfo> = ref({
       email: '',
       pass: ''
     });
-    const isPwd: boolean = ref(true);
+    const isPwd: Ref<boolean> = ref(true);
 
     const login = async (loginInfo: LoginInfo) => {
       try {
