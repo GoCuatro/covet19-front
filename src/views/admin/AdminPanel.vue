@@ -52,3 +52,8 @@ export default defineComponent({
   }
 });
 </script>
+
+<style lang="sass" scoped>
+.my-custom-toggle
+  border: 1px solid #027be3
+</style>
