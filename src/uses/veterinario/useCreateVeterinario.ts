@@ -16,7 +16,7 @@ export function useCreateVeterinario() {
     tarjetaProfesional: ''
    });
 
-  async function create() {
+  async function create(): Promise<void>{
     await apiVeterinario.createVeterinario(vet.value);
   }
 

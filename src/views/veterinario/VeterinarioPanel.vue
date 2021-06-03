@@ -36,15 +36,15 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, Ref, ref } from '@vue/composition-api';
+import { defineComponent, ref } from '@vue/composition-api';
 import VeterinarioAll from './VeterinarioAll.vue';
 import VeterinarioCreate from './VeterinarioCreate.vue';
 
 export default defineComponent({
   name: 'VeterinarioPanel',
   components: {VeterinarioCreate, VeterinarioAll  },
-  setup(_, context) {
-    let tab = ref("create");
+  setup() {
+    let tab = ref('create');
 
     return { tab };
   }

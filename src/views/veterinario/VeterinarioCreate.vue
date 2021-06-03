@@ -69,9 +69,9 @@ export default defineComponent({
       if(contraseña.value.password1 == contraseña.value.password2) {
         vet.value.password = contraseña.value.password1;
         console.log(vet);
-        create();
+        void create();
       } else {
-        throw new Error("La contraseña debe ser igual a la de confirmación");
+        throw new Error('La contraseña debe ser igual a la de confirmación');
       }
     };
     return { isPwd, isPwd2, vet, nombres, contraseña, algoPasa };

@@ -10,7 +10,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, Ref, ref } from '@vue/composition-api';
+import { defineComponent} from '@vue/composition-api';
 import { useVeterinarios } from '../../uses/veterinario/useVeterinarios';
 
 export default defineComponent({
