@@ -53,6 +53,10 @@ module.exports = configure(function(/* ctx */) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
 
+      env: {
+        'VUE_APP_BASE_URL': 'http://localhost:8090'
+      },
+
       // transpile: false,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)

@@ -61,10 +61,10 @@ const linksData = [
     link: '/admin'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: 'Veterinario',
+    caption: '',
+    icon: 'local_hospital',
+    link: '/veterinario'
   },
   {
     title: 'Discord Chat Channel',
