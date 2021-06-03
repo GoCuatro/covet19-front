@@ -8,7 +8,7 @@ const routes: RouteConfig[] = [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'admin', component: () => import('views/admin/AdminPanel.vue') },
       { path: 'veterinario', component: () => import('views/veterinario/VeterinarioPanel.vue') },
-      { path: 'user', component: () => import('views/User/Userindex.vue') }
+      { path: 'user', component: () => import('views/user/UserPanel.vue') }
     ]
   },
 
