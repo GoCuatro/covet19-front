@@ -53,7 +53,7 @@ module.exports = configure(function(/* ctx */) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        "VUE_APP_BASE_URL": "http://localhost:8090"
+        'VUE_APP_BASE_URL': 'http://localhost:8090'
       },
 
       env: {
@@ -88,7 +88,8 @@ module.exports = configure(function(/* ctx */) {
           ...cfg.resolve.alias,
           services: path.resolve(__dirname, './src/services'),
           types: path.resolve(__dirname, './src/types'),
-          views: path.resolve(__dirname, './src/views')
+          views: path.resolve(__dirname, './src/views'),
+          uses: path.resolve(__dirname, './src/uses')
         };
       }
     },
@@ -119,7 +120,7 @@ module.exports = configure(function(/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Cookies']
+      plugins: ['Cookies', 'Dialog']
     },
 
     // animations: 'all', // --- includes all animations
