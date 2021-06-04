@@ -20,15 +20,18 @@ export const apiCita = {
     }
   },
 
-  async getCitasAgendadas(): Promise<Cita[]> {
+  async getCitasAgendadas(idUser: string): Promise<Cita[]> {
     try {
-      //TO-DO get citas
-      /*const response;
+      const response = await axios.get(process.env.VUE_APP_BASE_URL.concat('/users/').concat(idUser).concat('/verCitasAgendadas'),
+      {
+        headers: {
+          Authorization: 'Bearer ' + Cookies.get('token')
+        }
+      });
+      console.log(response.data);
       return new Promise((resolve) => {
         resolve(response.data);
-      });*/
-      const citas: Cita []=[];
-      return citas;
+      });
     }
     catch (e) {
       throw new Error('Error al cargar las citas: '.concat(e));

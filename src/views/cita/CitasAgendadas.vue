@@ -13,10 +13,10 @@
         </thead>
         <tbody>
           <tr v-for="cita in citas" :key="cita.id">
-            <td class="text-center"><a :href="`/veterinario/find/${cita.id}`">{{cita.id}}</a></td>
-            <td class="text-center">{{cita.idMascota}}</td>
-            <td class="text-center">{{cita.idVeterinario}}</td>
-            <td class="text-center">{{cita.fecha}}</td>
+            <td class="text-center" @click='redirige'>{{cita.id}}</td>
+            <td class="text-center" @click='redirige'>{{cita.idMascota}}</td>
+            <td class="text-center" @click='redirige'>{{cita.idVeterinario}}</td>
+            <td class="text-center" @click='redirige'>{{cita.fecha}}</td>
 
           </tr>
         </tbody>
@@ -35,13 +35,17 @@
 
 <script lang='ts'>
 import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
+import { LocalStorage } from 'quasar';
+import { CommonUser } from 'types/CommonUser';
 import { useCitasAgendadas } from '../../uses/cita/useCitasAgendadas';
+import { Router } from 'src/router';
 
 export default defineComponent({
   name: 'CitasAgendadas',
   components: {},
   setup() {
-    const { citas } = useCitasAgendadas();
+    const user: CommonUser = LocalStorage.getItem('user') as CommonUser;
+    const { citas } = useCitasAgendadas(user.id);
 
     let visible: Ref<boolean> = ref(false);
     let showSimulatedReturnData: Ref<boolean> = ref(false);
@@ -58,7 +62,12 @@ export default defineComponent({
         showSimulatedReturnData.value = true
       }, 3000);
     };
-    return { citas, visible, showSimulatedReturnData };
+
+    const redirige = () => {
+      Router?.push("/user");
+
+    };
+    return { citas, visible, showSimulatedReturnData, redirige };
   }
 });
 </script>
