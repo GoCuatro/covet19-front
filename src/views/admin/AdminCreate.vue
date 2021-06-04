@@ -1,7 +1,8 @@
 <template>
   <q-card>
     <q-card-section>
-      <q-input v-model='newAdmin.email' label='Email' />
+      <q-input v-model='newAdmin.id' hint='Id' disable />
+      <q-input v-model='newAdmin.correo' hint='Email' />
       <q-input v-model='newAdmin.pass' filled :type="isPwd ? 'password' : 'text'"
                hint='Contraseña'>
         <template v-slot:append>
@@ -12,37 +13,43 @@
           />
         </template>
       </q-input>
-      <q-input v-model='newAdmin.nombre' label='Nombre' />
-      <q-input v-model='newAdmin.apellido' label='Apellidos' />
+      <q-input v-model='newAdmin.cedula' hint='Cedula' />
+      <q-input v-model='newAdmin.nombre' hint='Nombre' />
+      <q-input v-model='newAdmin.telefono' hint='Telefono' />
+      <q-input v-model='newAdmin.direccion' hint='Direccion' />
+      <q-input v-model='newAdmin.fechaNacimiento' hint='Fecha de nacimiento' type='date' />
     </q-card-section>
 
     <q-separator />
 
     <q-card-actions vertical>
-      <q-btn label='Crear' @click='algoPasa' />
+      <q-btn label='Crear' @click='createView' />
     </q-card-actions>
   </q-card>
 </template>
 
 <script lang='ts'>
 import { defineComponent, Ref, ref } from '@vue/composition-api';
-import { NewAdmin } from 'src/types/NewAdmin';
+import { useAdminCreate } from 'uses/admin/useAdminCreate';
+import { Notify } from 'quasar';
 
 export default defineComponent({
   name: 'AdminCreate',
   components: {},
   setup() {
     const isPwd: Ref<boolean> = ref(true);
-    let newAdmin: Ref<NewAdmin> = ref({
-      email: '',
-      pass: '',
-      nombre: '',
-      apellido: ''
-    });
-    const algoPasa = () => {
-      console.log('Algo pasa');
-    };
-    return { isPwd, newAdmin, algoPasa };
+    const { newAdmin, create } = useAdminCreate();
+
+    const createView = async () => {
+      const response = await create();
+      if(response){
+        Notify.create('Administrador creado correctamente');
+      }else{
+        Notify.create('Ocurrio un error');
+      }
+    }
+
+    return { isPwd, newAdmin, createView };
   }
 });
 </script>

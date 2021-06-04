@@ -2,6 +2,8 @@ import { ref, Ref } from '@vue/composition-api';
 import { LoginInfo } from 'types/LoginInfo';
 import apiLogin from 'services/apiLogin';
 import { LoginResWrapper } from 'types/LoginResWrapper';
+import IncorrectCredentialsException from 'uses/exceptions/IncorrectCredentialsException';
+import NotFoundException from 'uses/exceptions/NotFoundException';
 
 export default function useLogin() {
 
@@ -14,11 +16,17 @@ export default function useLogin() {
 
   const login = async () => {
     const response: LoginResWrapper = await apiLogin(loginInfo.value);
-    if (response.status == 200) {
-      logged.value = true;
-      return response.response;
+    switch (response.status) {
+      case 200:
+        logged.value = true;
+        return response.response;
+      case 403:
+        throw new IncorrectCredentialsException('Credenciales incorrectas');
+      case 404:
+        throw new NotFoundException('Usuario no registrado');
+      default:
+        throw new Error('Undefined Error');
     }
-    return null;
   };
   return { logged, loginInfo, login };
 }
