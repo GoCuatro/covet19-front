@@ -31,7 +31,7 @@ import { NewAdmin } from 'src/types/NewAdmin';
 export default defineComponent({
   name: 'AdminCreate',
   components: {},
-  setup(_, context) {
+  setup() {
     const isPwd: Ref<boolean> = ref(true);
     let newAdmin: Ref<NewAdmin> = ref({
       email: '',
