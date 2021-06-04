@@ -9,7 +9,8 @@ export function useProductoCreate() {
     nombre: '',
     descripcion: '',
     marca: '',
-    precio: 0
+    precio: 0,
+    inventario: 0
   });
 
   function resetProducto() {

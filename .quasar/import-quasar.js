@@ -20,4 +20,4 @@ import Vue from 'vue'
 import {Quasar,Cookies,Dialog,Notify,LocalStorage} from 'quasar'
 
 
-Vue.use(Quasar, { config: {},lang: lang,iconSet: iconSet,plugins: {Cookies,Dialog,Notify,LocalStorage} })
+Vue.use(Quasar, { config: {"loading":{}},lang: lang,iconSet: iconSet,plugins: {Cookies,Dialog,Notify,LocalStorage} })

@@ -1,11 +1,12 @@
 import { Veterinario } from '../../types/Veterinario';
 import { apiVeterinario } from '../../services/apiVeterinario';
 import { Ref, ref } from '@vue/composition-api';
+import { UUID } from 'uuid-generator-ts';
 
 export function useCreateVeterinario() {
 
   const vet: Ref<Veterinario> = ref({
-    id: '',
+    id: new UUID().toString(),
     cedula: 0,
     correo: '',
     direccion: '',
@@ -13,7 +14,8 @@ export function useCreateVeterinario() {
     nombre: '',
     password: '',
     telefono: 0,
-    tarjetaProfesional: ''
+    tarjetaProfesional: '',
+    agenda: []
    });
 
   async function create(): Promise<void>{

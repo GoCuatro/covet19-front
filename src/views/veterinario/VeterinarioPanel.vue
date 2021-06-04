@@ -42,7 +42,7 @@ import VeterinarioCreate from './VeterinarioCreate.vue';
 
 export default defineComponent({
   name: 'VeterinarioPanel',
-  components: {VeterinarioCreate, VeterinarioAll  },
+  components: {VeterinarioCreate, VeterinarioAll },
   setup() {
     let tab = ref('create');
 
