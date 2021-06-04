@@ -11,6 +11,9 @@
       ],
       "views/*": [
         "src/views/*"
+      ],
+      "uses/*": [
+        "src/uses/*"
       ]
     }
   }
