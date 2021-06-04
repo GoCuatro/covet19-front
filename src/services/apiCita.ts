@@ -16,7 +16,7 @@ export const apiCita = {
       return citas;
     }
     catch (e) {
-      throw new Error('Error al cargar los veterinarios: '.concat(e));
+      throw new Error('Error al cargar las citas: '.concat(e));
     }
   },
 
@@ -31,14 +31,15 @@ export const apiCita = {
       return citas;
     }
     catch (e) {
-      throw new Error('Error al cargar los veterinarios: '.concat(e));
+      throw new Error('Error al cargar las citas: '.concat(e));
     }
   },
 
   async createCita(cita: Cita) {
     try {
-      await axios.post(process.env.VUE_APP_BASE_URL.concat(citas_agendar), JSON.parse(JSON.stringify(cita)),
-        {headers: {'X-Requested-With': 'XMLHttpRequest', 'Authorization': Cookies.get('token')}});
+      console.log(cita);
+      await axios.post(process.env.VUE_APP_BASE_URL.concat(citas_agendar), JSON.parse(JSON.stringify(cita))/*,
+        {headers: {'X-Requested-With': 'XMLHttpRequest', 'Authorization': Cookies.get('token')}}*/);
     } catch (e) {
       throw new Error('Error al crear la Cita: '.concat(e));
     }

@@ -1,6 +1,7 @@
 <template>
   <q-card>
     <q-card-section>
+      <q-input v-model='cita.id' label='ID' disable />
       <q-input v-model='cita.idMascota' label='Id mascota' />
       <q-input v-model='cita.idVeterinario' label='Id veterinario' />
       <q-input v-model='cita.fecha' hint='Fecha de la cita' type="date" />
@@ -17,6 +18,9 @@
 <script lang='ts'>
 import { defineComponent, Ref, ref } from '@vue/composition-api';
 import { useAgendarCita} from '../../uses/cita/useAgendarCita';
+import { LocalStorage } from 'quasar';
+import { CommonUser} from 'types/CommonUser';
+
 
 export default defineComponent({
 
@@ -24,10 +28,11 @@ export default defineComponent({
   components: {},
   setup() {
 
-    const { cita, create } = useAgendarCita();
+    const user: CommonUser = LocalStorage.getItem('user') as CommonUser;
+    const { cita, create } = useAgendarCita(user.id);
 
     const algoPasa = () => {
-       cita.value.idUsuario;
+
 
         console.log(cita);
         void create();

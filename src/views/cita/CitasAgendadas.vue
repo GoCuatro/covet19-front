@@ -1,26 +1,40 @@
 <template>
-  <q-card>
-    <q-card-section>
-      <div class="q-pa-md">
-        <q-table
-          title="Citas Agendadas"
-          :data="citasAgendadas"
-          :columns="columns"
-          row-key="name"
-        />
-      </div>
-    </q-card-section>
+<div>
+    <div class="q-pa-md">
 
-    <q-separator />
+      <q-markup-table v-show="showSimulatedReturnData">
+        <thead>
+          <tr>
+            <th class="text-center"><strong>Id Cita</strong></th>
+            <th class="text-center"><strong>Id Mascota</strong></th>
+            <th class="text-center"><strong>Id Veterinarios</strong></th>
+            <th class="text-center"><strong>Fecha de la Cita</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="cita in citas" :key="cita.id">
+            <td class="text-center"><a :href="`/veterinario/find/${cita.id}`">{{cita.id}}</a></td>
+            <td class="text-center">{{cita.idMascota}}</td>
+            <td class="text-center">{{cita.idVeterinario}}</td>
+            <td class="text-center">{{cita.fecha}}</td>
 
-    <q-card-actions vertical>
-      <q-btn label='VerCita' @click='algoPasa' />
-    </q-card-actions>
-  </q-card>
+          </tr>
+        </tbody>
+
+      </q-markup-table>
+
+    </div>
+
+    <q-inner-loading :showing="visible">
+      <q-spinner-gears size="50px" color="primary" />
+    </q-inner-loading>
+
+    </div>
+
 </template>
 
 <script lang='ts'>
-import { defineComponent} from '@vue/composition-api';
+import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
 import { useCitasAgendadas } from '../../uses/cita/useCitasAgendadas';
 
 export default defineComponent({
@@ -29,13 +43,22 @@ export default defineComponent({
   setup() {
     const { citas } = useCitasAgendadas();
 
-    let columns = [
-      { name: 'idMascota', label: 'id Mascota', align: 'center', field: 'idMascota', sortable: true },
-      { name: 'idVeterinario', label: 'id Veterinario', align: 'center', field: 'idVeterinario', sortable: true },
-      { name: 'fecha', label: 'Fecha de la Cita', field: 'fecha'}
-    ];
+    let visible: Ref<boolean> = ref(false);
+    let showSimulatedReturnData: Ref<boolean> = ref(false);
 
-    return { columns, citas };
+    onBeforeMount(()=>{
+      showLoading();
+    });
+
+    function showLoading () {
+      visible.value = true;
+      showSimulatedReturnData.value = false;
+      setTimeout(() => {
+        visible.value = false
+        showSimulatedReturnData.value = true
+      }, 3000);
+    };
+    return { citas, visible, showSimulatedReturnData };
   }
 });
 </script>
