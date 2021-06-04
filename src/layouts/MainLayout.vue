@@ -73,6 +73,12 @@ const linksData = [
     link: '/producto'
   },
   {
+    title: 'Veterinario',
+    caption: '',
+    icon: 'local_hospital',
+    link: '/veterinario'
+  },
+  {
     title: 'Discord Chat Channel',
     caption: 'chat.quasar.dev',
     icon: 'chat',
@@ -118,6 +124,7 @@ export default defineComponent({
       if (token != null) {
         logged.value = true;
       }
+
     });
 
     function onLogged() {
