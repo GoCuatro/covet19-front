@@ -16,7 +16,7 @@ export function useProductoCatalogo() {
   };
   const diableProducto = async (producto: Producto) => {
     const response = await apiProductoDisable(producto);
-    return response == 200;
+    return response == 202;
   };
   return { catalogo, loadCatalogo, loadStock, diableProducto };
 }
