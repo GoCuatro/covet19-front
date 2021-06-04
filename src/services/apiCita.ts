@@ -1,4 +1,4 @@
-import { Cita } from './../types/Cita';
+import { Cita } from '../types/Cita';
 import axios from 'axios';
 import { citas_agendar, ver_cita } from '../config/urls';
 import { Cookies } from 'quasar';
