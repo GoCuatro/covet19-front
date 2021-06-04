@@ -37,15 +37,13 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, Ref, ref } from '@vue/composition-api';
-import { LoginInfo } from 'src/types/LoginInfo';
-import axios from 'axios';
+import { defineComponent, ref } from '@vue/composition-api';
 import AdminCreate from 'src/views/admin/AdminCreate.vue';
 
 export default defineComponent({
   name: 'AdminPanel',
   components: { AdminCreate },
-  setup(_, context) {
+  setup() {
     let tab = ref(null);
 
     return { tab };
