@@ -54,10 +54,6 @@
 
 <script lang='ts'>
 import EssentialLink from 'components/EssentialLink.vue';
-import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
-import Login from 'src/views/Login.vue';
-import { Cookies, LocalStorage } from 'quasar';
-import useLogin from 'uses/useLogin';
 
 const linksData = [
   {
@@ -79,36 +75,18 @@ const linksData = [
     link: '/producto'
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
+    title: 'Usuario',
+    caption: '',
     icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
+    link: '/user'
   },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
 ];
+
+import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
+import Login from 'src/views/Login.vue';
+import { Cookies } from 'quasar';
+import useLogin from 'uses/useLogin';
+import { LocalStorage } from 'quasar';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -124,7 +102,6 @@ export default defineComponent({
       if (token != null) {
         logged.value = true;
       }
-
     });
 
     function onLogged() {
