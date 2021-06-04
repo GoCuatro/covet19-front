@@ -4,17 +4,17 @@
       <q-card-section >
         <q-input v-model='cita.id' label='ID' disable />
         <br>
-        <q-select filled v-model="mascSelected" :options="optionsM" label="Mascota" />
+        <q-select disable filled v-model="mascSelected" :options="optionsM" label="Mascota" />
         <br>
-        <q-select filled v-model="vetSelected" :options="optionsV" label="Veterinario" />
+        <q-select disable filled v-model="vetSelected" :options="optionsV" label="Veterinario" />
         <br>
-        <q-input v-model='cita.fecha' hint='Fecha de la cita' type="date" />
+        <q-input v-model='fecha' hint='Fecha de la cita' type="date" />
       </q-card-section>
 
       <q-separator />
 
       <q-card-actions vertical>
-        <q-btn label='Crear' @click='algoPasa' />
+        <q-btn label='Actualizar' @click='algoPasa' />
       </q-card-actions>
     </q-card>
 
@@ -27,22 +27,25 @@
 
 <script lang='ts'>
 import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
-import { useAgendarCita} from '../../uses/cita/useAgendarCita';
 import { LocalStorage } from 'quasar';
 import { CommonUser} from 'types/CommonUser';
 import { useVeterinarios } from 'uses/veterinario/useVeterinarios';
 import { SelectElement } from '../../types/SelectElement';
 import { useMascotas } from '../../uses/mascota/useMascotas';
+import { useUpdateCita } from '../../uses/cita/useUpdateCita';
+import { Router } from 'src/router';
 
 
 export default defineComponent({
 
-  name: 'AgendarCita',
+  name: 'citaUpdate',
   components: {},
   setup() {
 
+    const id: Ref<string>= ref(Router?.currentRoute.params.id as string);
+
     const user: CommonUser = LocalStorage.getItem('user') as CommonUser;
-    const { cita, create } = useAgendarCita(user.id);
+    const { cita, updateCita } = useUpdateCita(id.value);
 
     const { veterinarios } = useVeterinarios();
     const { mascotas } = useMascotas();
@@ -57,6 +60,7 @@ export default defineComponent({
     });
     let visible: Ref<boolean> = ref(false);
     let showSimulatedReturnData: Ref<boolean> = ref(false);
+    let fecha: Ref<string> = ref('');
 
     let optionsV: Ref<SelectElement[]> =  ref([]);
     let optionsM: Ref<SelectElement[]> =  ref([]);
@@ -69,7 +73,8 @@ export default defineComponent({
         console.log(cita);
         cita.value.idMascota = mascSelected.value.value;
         cita.value.idVeterinario = vetSelected.value.value;
-        void create();
+        cita.value.fecha = fecha.value.concat(' 00:00:00');
+        void updateCita();
     };
 
     function showLoading() {
@@ -85,6 +90,12 @@ export default defineComponent({
               value: vet.id,
             }
           );
+          if(vet.id === cita.value.idVeterinario) {
+            vetSelected.value = {
+              label: vet.nombre,
+              value: vet.id,
+            };
+          }
         });
         mascotas.value.forEach(masc => {
           optionsM.value.push(
@@ -93,11 +104,18 @@ export default defineComponent({
               value: masc.id,
             }
           );
+          if(masc.id === cita.value.idMascota) {
+            mascSelected.value = {
+              label: masc.nombre,
+              value: masc.id,
+            };
+          }
         });
+        fecha.value = cita.value.fecha.split(' ')[0];
       }, 3000);
     };
 
-    return { cita, algoPasa, vetSelected, mascSelected, optionsV, optionsM, visible, showSimulatedReturnData };
+    return { fecha, cita, algoPasa, vetSelected, mascSelected, optionsV, optionsM, visible, showSimulatedReturnData };
   }
 });
 </script>

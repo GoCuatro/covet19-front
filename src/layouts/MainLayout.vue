@@ -67,16 +67,16 @@ const linksData = [
     link: '/admin'
   },
   {
-    title: 'Productos',
-    caption: '',
-    icon: 'code',
-    link: '/producto'
-  },
-  {
     title: 'Veterinario',
     caption: '',
     icon: 'local_hospital',
     link: '/veterinario'
+  },
+  {
+    title: 'Productos',
+    caption: '',
+    icon: 'code',
+    link: '/producto'
   },
   {
     title: 'Discord Chat Channel',

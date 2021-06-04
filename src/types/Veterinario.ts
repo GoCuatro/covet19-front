@@ -1,3 +1,5 @@
+import { ElementoAgenda } from "./ElementoAgenda";
+
 export interface Veterinario {
   id: string,
   cedula: number,
@@ -7,5 +9,6 @@ export interface Veterinario {
   nombre: string,
   password: string,
   telefono: number,
-  tarjetaProfesional: string
+  tarjetaProfesional: string,
+  agenda: Array<ElementoAgenda>
 }

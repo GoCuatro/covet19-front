@@ -12,12 +12,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="cita in citas" :key="cita.id">
-            <td class="text-center" @click='redirige'>{{cita.id}}</td>
-            <td class="text-center" @click='redirige'>{{cita.idMascota}}</td>
-            <td class="text-center" @click='redirige'>{{cita.idVeterinario}}</td>
-            <td class="text-center" @click='redirige'>{{cita.fecha}}</td>
-
+          <tr v-for="cita in citas" :key="cita.id" @click='redirige(cita.id)'>
+            <td class="text-center" >{{cita.id}}</td>
+            <td class="text-center" >{{cita.idMascota}}</td>
+            <td class="text-center" >{{cita.idVeterinario}}</td>
+            <td class="text-center" >{{cita.fecha}}</td>
           </tr>
         </tbody>
 
@@ -63,8 +62,8 @@ export default defineComponent({
       }, 3000);
     };
 
-    const redirige = () => {
-      Router?.push("/user");
+    function redirige(id: string) {
+      Router?.push("/cita/".concat(id));
 
     };
     return { citas, visible, showSimulatedReturnData, redirige };
