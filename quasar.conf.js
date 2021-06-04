@@ -52,6 +52,9 @@ module.exports = configure(function(/* ctx */) {
     // Full list of options: https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
+      env: {
+        "VUE_APP_BASE_URL": "http://localhost:8090"
+      },
 
       // transpile: false,
 

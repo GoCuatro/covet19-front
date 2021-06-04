@@ -61,10 +61,10 @@ const linksData = [
     link: '/admin'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
+    title: 'Productos',
+    caption: '',
     icon: 'code',
-    link: 'https://github.com/quasarframework'
+    link: '/producto'
   },
   {
     title: 'Discord Chat Channel',
@@ -113,7 +113,7 @@ export default defineComponent({
 
     onBeforeMount(() => {
       let token = Cookies.get('token');
-      if(token != null) {
+      if (token != null) {
         logged.value = true;
       }
     });
