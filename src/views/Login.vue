@@ -18,7 +18,7 @@
       <q-separator />
 
       <q-card-actions vertical>
-        <q-btn label='Iniciar Sesion' @click='login(loginInfo)' />
+        <q-btn label='Iniciar Sesion' @click='loginView' />
       </q-card-actions>
     </q-card>
   </q-page>
@@ -26,31 +26,32 @@
 
 <script lang='ts'>
 import { defineComponent, Ref, ref } from '@vue/composition-api';
-import { LoginInfo } from 'src/types/LoginInfo';
-import axios from 'axios';
-import { LoginResponse} from 'types/LoginResponse';
+import { LoginResponse } from 'types/LoginResponse';
+import { LocalStorage, Cookies } from 'quasar';
+import useLogin from 'uses/producto/useLogin';
 
 export default defineComponent({
   name: 'Login',
   components: {},
   setup(_, context) {
-    const loginInfo: Ref<LoginInfo> = ref({
-      email: '',
-      pass: ''
-    });
     const isPwd: Ref<boolean> = ref(true);
+    const { loginInfo, login } = useLogin();
 
-    const login = async (loginInfo: LoginInfo) => {
+    const loginView = async () => {
       try {
-        const response = await axios.post('http://localhost:8090/login', JSON.parse(JSON.stringify(loginInfo)));
-        let result: LoginResponse = response.data as LoginResponse;
-        context.emit('logged', result);
+        let sessionInfo: LoginResponse | null = await login();
+        context.emit('logged');
+        if (sessionInfo != null) {
+          LocalStorage.set('user', sessionInfo.user);
+          Cookies.set('token', sessionInfo.token);
+        }
+        console.log(sessionInfo);
       } catch (e) {
         console.log(e);
       }
     };
 
-    return { loginInfo, isPwd, login };
+    return { loginInfo, isPwd, loginView };
   }
 });
 </script>

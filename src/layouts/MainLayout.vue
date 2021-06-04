@@ -16,7 +16,7 @@
             Quasar App
           </q-toolbar-title>
 
-          <div>Quasar v{{ $q.version }}</div>
+          <q-btn label='Get User' @click='getUser'/>
         </q-toolbar>
       </q-header>
 
@@ -104,10 +104,11 @@ const linksData = [
   }
 ];
 
-import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
+import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
 import Login from 'src/views/Login.vue';
 import { Cookies } from 'quasar';
-import { LoginResponse } from 'types/LoginResponse';
+import useLogin from 'uses/producto/useLogin';
+import { LocalStorage } from 'quasar';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -116,7 +117,7 @@ export default defineComponent({
 
     const leftDrawerOpen = ref(false);
     const essentialLinks = ref(linksData);
-    let logged: Ref<boolean> = ref(false);
+    const { logged } = useLogin();
 
     onBeforeMount(() => {
       let token = Cookies.get('token');
@@ -126,14 +127,15 @@ export default defineComponent({
 
     });
 
-    function onLogged(response: LoginResponse) {
+    function onLogged() {
       logged.value = true;
-      console.log(response.token);
-      Cookies.set('token', response.token);
-      Cookies.set('user', JSON.stringify(response.user));
     }
 
-    return { leftDrawerOpen, essentialLinks, logged, onLogged };
+    function getUser() {
+      console.log(LocalStorage.getItem('user'));
+    }
+
+    return { leftDrawerOpen, essentialLinks, logged, onLogged, getUser };
   }
 });
 </script>
