@@ -27,17 +27,23 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, Ref, ref } from '@vue/composition-api';
+import { defineComponent, ref } from '@vue/composition-api';
 import { PanelComponent } from 'types/PanelComponent';
 import ProductoCreate from 'views/producto/ProductoCreate.vue';
+import ProductoCatalogo from 'views/producto/ProductoCatalogo.vue';
 
 export default defineComponent({
   name: 'ProductoPanel',
   components: {
-    ProductoCreate
+    ProductoCreate,
+    ProductoCatalogo
   },
-  setup(_, context) {
+  setup() {
     const paneles: PanelComponent[] = [
+      {
+        label: 'Catalogo',
+        panel: 'producto-catalogo'
+      },
       {
         label: 'Crear',
         panel: 'producto-create'
