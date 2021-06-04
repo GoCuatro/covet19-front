@@ -80,6 +80,12 @@ const linksData = [
     icon: 'record_voice_over',
     link: '/user'
   },
+  {
+    title: 'Agendar Cita',
+    caption: '',
+    icon: 'edit_calendar',
+    link: '/user/citas'
+  }
 ];
 
 import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
