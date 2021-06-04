@@ -2,35 +2,77 @@
   <q-page>
     <q-card>
       <q-card-section>
-        <q-input type='search' label='Buscar' v-model='busquedaFilter' />
-      </q-card-section>
-      <q-separator />
-      <q-card-section>
         <q-list>
-          <q-item v-for='(admin, adminIndex) in filteredNomina' :key='admin.nombre + adminIndex'>
+          <q-item v-for='(pedido, pedidoIndex) in activePedidos' :key='pedido.idPedido + pedidoIndex'>
             <q-item-section>
-              <admin-update v-if='editing.includes(adminIndex)' :admin='admin' :index='adminIndex'
-                            @updated='onUpdated' />
-              <q-card v-else>
+              <q-card>
                 <q-card-section>
                   <q-item>
                     <q-item-section>
-                      <q-item-label>{{ admin.correo }} -
-                        <q-badge color='teal' :label='admin.cedula' />
-                      </q-item-label>
-                      <q-item-label caption>{{ admin.nombre }} - {{ admin.telefono }} - {{ admin.direccion }}
-                      </q-item-label>
+                      <q-item-label>Pedido - {{ pedido.idPedido }}</q-item-label>
                     </q-item-section>
 
                     <q-item-section side>
-                      <q-badge color='teal' :label='admin.id' />
+                      <q-badge color='teal' :label='"Total: " + getTotal(pedido)' />
                     </q-item-section>
                   </q-item>
+
+                  <q-item>
+                    <q-item-section>
+                      <q-item-label>
+                        Enviado:
+                        <q-avatar v-if='pedido.enviadoPedido' icon='check' color='green' rounded size='sm' />
+                        <q-avatar v-else icon='close' color='red' rounded size='sm' />
+                      </q-item-label>
+                      <template v-if='pedido.enviadoPedido'>
+                        <q-item-label>
+                          Fecha enviado: {{ pedido.fechaEnviadoPedido }}
+                        </q-item-label>
+                      </template>
+                      <q-item-label>
+                        Finalizado:
+                        <q-avatar v-if='pedido.finalizadoPedido' icon='check' color='green' rounded size='sm' />
+                        <q-avatar v-else icon='close' color='red' rounded size='sm' />
+                      </q-item-label>
+                      <template v-if='pedido.finalizadoPedido'>
+                        <q-item-label>
+                          Fecha enviado: {{ pedido.fechaFinalizadoPedido }}
+                        </q-item-label>
+                      </template>
+                    </q-item-section>
+                  </q-item>
+
                 </q-card-section>
+
+                <q-separator />
+
+                <q-expansion-item
+                  expand-separator
+                  icon='shopping_cart'
+                  label='Carrito'
+                  :caption='`${pedido.compraPedido.length} elementos`'
+                >
+                  <q-list>
+                    <q-item v-for='(compra, indexCompra) in pedido.compraPedido' :key='compra.id+indexCompra'>
+                      <q-item-section top avatar>
+                        <q-avatar color='primary' text-color='white' square>{{ compra.cantidad }}</q-avatar>
+                      </q-item-section>
+
+                      <q-item-section>
+                        <q-item-label>{{ compra.nombre }}</q-item-label>
+                        <q-item-label caption>{{ compra.marca }}</q-item-label>
+                      </q-item-section>
+
+                      <q-item-section side>
+                        <q-badge color='teal' :label='compra.precio' />
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-expansion-item>
                 <q-separator />
                 <q-card-section>
                   <div class='row justify-end'>
-                    <q-btn label='Editar' @click='editAdmin(adminIndex)' />
+                    <q-btn label='Enviar Pedido' @click='sendPedidoView(pedido)' />
                   </div>
                 </q-card-section>
               </q-card>
@@ -46,38 +88,25 @@
 </template>
 
 <script lang='ts'>
-import { computed, defineComponent, onMounted, Ref, ref } from '@vue/composition-api';
-import { useAdminNomina } from 'uses/admin/useAdminNomina';
-import { useFilterAdmin } from 'uses/admin/useFilterAdmin';
-import AdminUpdate from 'views/admin/AdminUpdate.vue';
-import { CommonUser } from 'types/CommonUser';
+import { defineComponent, onMounted } from '@vue/composition-api';
+import usePedidoAll from 'uses/pedido/usePedidoAll';
+import { Pedido } from 'types/Pedido';
+import { Notify } from 'quasar';
 
 export default defineComponent({
-  name: 'AdminNomina',
-  components: {
-    AdminUpdate
-  },
+  name: 'AdminPedidos',
+  components: {},
   setup() {
-    const { nomina, loadNomina } = useAdminNomina();
-    const { busquedaFilter, filterAdmin } = useFilterAdmin();
-    const editing: Ref<number[]> = ref([]);
-    onMounted(loadNomina);
-    const filteredNomina = computed(() => {
-      return filterAdmin(nomina.value);
-    });
-
-    function editAdmin(index: number) {
-      editing.value.push(index);
-    }
-
-    function onUpdated(index: number, updated: CommonUser) {
-      nomina.value[index] = updated;
-      editing.value = editing.value.filter(value => {
-        return value != index;
-      });
-    }
-
-    return { busquedaFilter, filteredNomina, editing, editAdmin, onUpdated };
+    const { activePedidos, loadPedidos, getTotal, sendPedido } = usePedidoAll();
+    onMounted(loadPedidos);
+    const sendPedidoView = async (pedido: Pedido) => {
+      const response = await sendPedido(pedido);
+      if (response) {
+        Notify.create('Pedido enviado exitosamente.');
+        void (await loadPedidos());
+      }
+    };
+    return { activePedidos, getTotal, sendPedidoView };
   }
 })
 ;
