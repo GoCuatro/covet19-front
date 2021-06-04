@@ -16,7 +16,7 @@
             Quasar App
           </q-toolbar-title>
 
-          <q-btn label='Get User' @click='getUser'/>
+          <q-btn label='Cerrar Sesion' @click='logOut' />
         </q-toolbar>
       </q-header>
 
@@ -45,13 +45,19 @@
       </q-page-container>
     </template>
     <template v-else>
-      <login @logged='onLogged' />
+      <q-page-container>
+        <login @logged='onLogged' />
+      </q-page-container>
     </template>
   </q-layout>
 </template>
 
 <script lang='ts'>
 import EssentialLink from 'components/EssentialLink.vue';
+import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
+import Login from 'src/views/Login.vue';
+import { Cookies, LocalStorage } from 'quasar';
+import useLogin from 'uses/useLogin';
 
 const linksData = [
   {
@@ -98,12 +104,6 @@ const linksData = [
   }
 ];
 
-import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
-import Login from 'src/views/Login.vue';
-import { Cookies } from 'quasar';
-import useLogin from 'uses/producto/useLogin';
-import { LocalStorage } from 'quasar';
-
 export default defineComponent({
   name: 'MainLayout',
   components: { Login, EssentialLink },
@@ -124,11 +124,13 @@ export default defineComponent({
       logged.value = true;
     }
 
-    function getUser() {
-      console.log(LocalStorage.getItem('user'));
+    function logOut() {
+      Cookies.remove('token');
+      LocalStorage.remove('user');
+      logged.value = false;
     }
 
-    return { leftDrawerOpen, essentialLinks, logged, onLogged, getUser };
+    return { leftDrawerOpen, essentialLinks, logged, onLogged, logOut };
   }
 });
 </script>

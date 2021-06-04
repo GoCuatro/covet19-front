@@ -13,12 +13,17 @@ export default async function apiLogin(loginInfo: LoginInfo): Promise<LoginResWr
         status: response.status
       };
     } catch (e) {
-      console.log(e);
+      const res: LoginResWrapper = {
+        response: null,
+        status: 400
+      };
+      if (axios.isAxiosError(e)) {
+        if (e.response) {
+          res.status = e.response.status;
+        }
+      }
+      return res;
     }
-    return {
-      status: 400,
-      response: null
-    };
   }
   return {
     status: 400,
