@@ -1,6 +1,6 @@
 <template>
   <q-page class='row items-center justify-evenly'>
-    <q-card>
+    <q-card v-if='!registerView'>
       <q-card-section>
         <q-input v-model='loginInfo.email' label='Email' />
         <q-input v-model='loginInfo.pass' filled :type="isPwd ? 'password' : 'text'"
@@ -19,39 +19,55 @@
 
       <q-card-actions vertical>
         <q-btn label='Iniciar Sesion' @click='loginView' />
+        <q-btn label='Registrarse' @click='registerUser' />
       </q-card-actions>
     </q-card>
+    <register v-else @registered='onRegistered' />
   </q-page>
 </template>
 
 <script lang='ts'>
 import { defineComponent, Ref, ref } from '@vue/composition-api';
-import useLogin from 'uses/producto/useLogin';
+import useLogin from 'uses/useLogin';
 import { LoginResponse } from 'types/LoginResponse';
-import { LocalStorage, Cookies } from 'quasar';
+import { Cookies, LocalStorage, Notify } from 'quasar';
+import Register from 'views/Register.vue';
 
 export default defineComponent({
   name: 'Login',
-  components: {},
+  components: {
+    Register
+  },
   setup(_, context) {
     const isPwd: Ref<boolean> = ref(true);
     const { loginInfo, login } = useLogin();
+    const registerView: Ref<boolean> = ref(false);
 
     const loginView = async () => {
       try {
         let sessionInfo: LoginResponse | null = await login();
-        context.emit('logged');
         if (sessionInfo != null) {
           LocalStorage.set('user', sessionInfo.user);
           Cookies.set('token', sessionInfo.token);
+          context.emit('logged');
         }
-        console.log(sessionInfo);
       } catch (e) {
         console.log(e);
+        if(e instanceof Error){
+          Notify.create(e.message);
+        }
       }
     };
 
-    return { loginInfo, isPwd, loginView };
+    function registerUser() {
+      registerView.value = true;
+    }
+
+    function onRegistered() {
+      registerView.value = false;
+    }
+
+    return { loginInfo, isPwd, loginView, registerView, registerUser, onRegistered };
   }
 });
 </script>

@@ -1,11 +1,12 @@
-export interface CommonUser {
+export interface RegisterUser{
   id: string,
   correo: string,
-  pass?: string
+  password: string
   cedula: number,
   nombre: string,
   telefono: number,
   direccion: string,
-  fechaNacimiento: string,
-  rol: string,
+  fecha: string,
+  carrito: string,
+  mascotas: string
 }
