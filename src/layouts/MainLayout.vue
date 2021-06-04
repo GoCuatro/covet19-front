@@ -61,6 +61,12 @@ const linksData = [
     link: '/admin'
   },
   {
+    title: 'Productos',
+    caption: '',
+    icon: 'code',
+    link: '/producto'
+  },
+  {
     title: 'Veterinario',
     caption: '',
     icon: 'local_hospital',
@@ -113,7 +119,7 @@ export default defineComponent({
 
     onBeforeMount(() => {
       let token = Cookies.get('token');
-      if(token != null) {
+      if (token != null) {
         logged.value = true;
       }
 

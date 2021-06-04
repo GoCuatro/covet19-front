@@ -1,9 +1,8 @@
 export interface Producto {
-  id: string,
-  nombre: string,
-  descripcion : string,
-  precio: number,
-  marca: string,
-  inventario: number,
-  habilitado: boolean
+  id: string;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  marca: string;
+  inventario?: number;
 }

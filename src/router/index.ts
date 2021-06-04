@@ -7,10 +7,12 @@ import routes from './routes';
  * directly export the Router instantiation
  */
 
+let Router: VueRouter | null = null;
+
 export default route(function ({ Vue }) {
   Vue.use(VueRouter);
 
-  const Router = new VueRouter({
+  Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
 
@@ -23,3 +25,7 @@ export default route(function ({ Vue }) {
 
   return Router;
 })
+
+export {
+  Router
+}

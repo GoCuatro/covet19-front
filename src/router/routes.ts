@@ -1,5 +1,7 @@
 import { RouteConfig } from 'vue-router';
 
+
+
 const routes: RouteConfig[] = [
   {
     path: '/',
@@ -10,6 +12,7 @@ const routes: RouteConfig[] = [
       { path: 'veterinario', component: () => import('views/veterinario/VeterinarioPanel.vue') },
       { path: 'user', component: () => import('views/user/UserPanel.vue') },
       { path: 'user/citas', component: () => import('views/cita/CitaPanel.vue') }
+      { path: 'producto', component: () => import('views/producto/ProductoPanel.vue') }
     ]
   },
 
