@@ -1,8 +1,8 @@
 export interface Cita {
   id: string,
   diagnostico: string,
-  fechaCita: string,
+  fecha : string,
   idVeterinario: string,
-  idUsuario: string,
-  idMascota: string
+  idMascota: string,
+  idUsuario: string
 }

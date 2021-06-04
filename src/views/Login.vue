@@ -26,9 +26,9 @@
 
 <script lang='ts'>
 import { defineComponent, Ref, ref } from '@vue/composition-api';
-import useLogin from 'uses/producto/useLogin';
 import { LoginResponse } from 'types/LoginResponse';
 import { LocalStorage, Cookies } from 'quasar';
+import useLogin from 'uses/producto/useLogin';
 
 export default defineComponent({
   name: 'Login',
