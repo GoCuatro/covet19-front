@@ -20,11 +20,11 @@
       <q-tab-panels v-model='tab' animated>
         <q-tab-panel name='Tienda'>
           <productos-all-avaliable></productos-all-avaliable>
-       <!-- <veterinario-create></veterinario-create> !-->
         </q-tab-panel>
 
         <q-tab-panel name='Carrito'>
-          <!-- <veterinario-all></veterinario-all> !-->
+          <h2> Carrito en mantenimiento *~* </h2>
+          <!-- componente del carrito !-->
         </q-tab-panel>
 
         <q-tab-panel name='Mascotas'>
