@@ -10,6 +10,7 @@
         align='justify'
         narrow-
       >
+        <q-tab name='Perfil' label='Perfil'/>
         <q-tab name='Tienda' label='Tienda'/>
         <q-tab name='Carrito' label='Carrito' />
         <q-tab name='Pedidos' label='Pedidos' />
@@ -20,6 +21,10 @@
       <q-separator />
 
       <q-tab-panels v-model='tab' animated>
+        <q-tab-panel name='Perfil'>
+          <user-view></user-view>
+       <!-- <veterinario-create></veterinario-create> !-->
+        </q-tab-panel>
         <q-tab-panel name='Tienda'>
           <productos-all-avaliable></productos-all-avaliable>
        <!-- <veterinario-create></veterinario-create> !-->
@@ -53,10 +58,11 @@ import ProductosAllAvaliable from '../producto/ProductoAllAvaliable.vue';
 import MascotaAll from '../mascota/MascotaAll.vue';
 import PedidoAll from '../pedido/PedidoByIDUser.vue';
 import MascotaCreate from '../mascota/MascotaCreate.vue';
+import UserView from '../user/UserView.vue';
 
 export default defineComponent({
   name: 'ProductoPanel',
-  components: { ProductosAllAvaliable, MascotaAll, PedidoAll, MascotaCreate },
+  components: { ProductosAllAvaliable, MascotaAll, PedidoAll, MascotaCreate, UserView },
   setup() {
     let tab = ref('Tienda');
     return { tab };

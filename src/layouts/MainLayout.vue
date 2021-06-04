@@ -54,10 +54,6 @@
 
 <script lang='ts'>
 import EssentialLink from 'components/EssentialLink.vue';
-import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
-import Login from 'src/views/Login.vue';
-import { Cookies, LocalStorage } from 'quasar';
-import useLogin from 'uses/useLogin';
 
 const linksData = [
   {
@@ -114,7 +110,7 @@ const linksData = [
 import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
 import Login from 'src/views/Login.vue';
 import { Cookies } from 'quasar';
-import useLogin from 'uses/producto/useLogin';
+import useLogin from 'uses/useLogin';
 import { LocalStorage } from 'quasar';
 
 export default defineComponent({
