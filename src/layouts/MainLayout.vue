@@ -75,35 +75,11 @@ const linksData = [
     link: '/producto'
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
+    title: 'Usuario',
+    caption: '',
     icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
+    link: '/user'
   },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
 ];
 
 import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
