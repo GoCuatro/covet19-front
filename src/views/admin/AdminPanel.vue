@@ -10,26 +10,16 @@
         align='justify'
         narrow-indicator
       >
-        <q-tab name='create' label='Crear' />
-        <q-tab name='alarms' label='Alarms' />
-        <q-tab name='movies' label='Movies' />
+        <q-tab v-for='(panelHeader, panelHeaderIndex) in paneles' :name='panelHeader.panel' :label='panelHeader.label'
+               :key='`panelHeader-${panelHeaderIndex}`' />
       </q-tabs>
 
       <q-separator />
 
       <q-tab-panels v-model='tab' animated>
-        <q-tab-panel name='create'>
-          <admin-create />
-        </q-tab-panel>
-
-        <q-tab-panel name='alarms'>
-          <div class='text-h6'>Alarms</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </q-tab-panel>
-
-        <q-tab-panel name='movies'>
-          <div class='text-h6'>Movies</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <q-tab-panel v-for='(panelTab, panelTabIndex) in paneles' :name='panelTab.panel'
+                     :key='`panelTab-${panelTabIndex}`'>
+          <component :is='panelTab.panel' />
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
@@ -39,14 +29,36 @@
 <script lang='ts'>
 import { defineComponent, ref } from '@vue/composition-api';
 import AdminCreate from 'src/views/admin/AdminCreate.vue';
+import AdminNomina from 'views/admin/AdminNomina.vue';
+import AdminPedidos from 'views/admin/AdminPedidos.vue';
+import { PanelComponent } from 'types/PanelComponent';
 
 export default defineComponent({
   name: 'AdminPanel',
-  components: { AdminCreate },
+  components: {
+    AdminCreate,
+    AdminNomina,
+    AdminPedidos
+  },
   setup() {
     let tab = ref(null);
 
-    return { tab };
+    const paneles: PanelComponent[] = [
+      {
+        label: 'Pedidos',
+        panel: 'admin-pedidos'
+      },
+      {
+        label: 'Nomina',
+        panel: 'admin-nomina'
+      },
+      {
+        label: 'Crear',
+        panel: 'admin-create'
+      }
+    ];
+
+    return { tab, paneles };
   }
 });
 </script>
