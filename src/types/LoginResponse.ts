@@ -1,4 +1,4 @@
-import { CommonUser } from './CommonUser';
+import { CommonUser } from 'types/CommonUser';
 
 export interface LoginResponse {
   token: string,

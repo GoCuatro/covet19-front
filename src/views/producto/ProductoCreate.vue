@@ -6,45 +6,37 @@
         <q-input v-model='newProducto.nombre' label='Nombre' />
         <q-input v-model='newProducto.descripcion' label='Descripcion' type='textarea' />
         <q-input v-model='newProducto.marca' label='Marca' />
-        <q-input v-model.number='newProducto.marca' label='Precio' type='number' />
+        <q-input v-model.number='newProducto.precio' label='Precio' type='number' />
       </q-card-section>
 
       <q-separator />
 
       <q-card-actions vertical>
-        <q-btn label='Crear' @click='algoPasa' />
+        <q-btn label='Crear' @click='create' />
       </q-card-actions>
     </q-card>
   </q-page>
 </template>
 
 <script lang='ts'>
-import { defineComponent, Ref, ref } from '@vue/composition-api';
-import { Producto } from 'types/Producto';
-import { UUID } from 'uuid-generator-ts';
-import { Router} from '../../router';
+import { defineComponent } from '@vue/composition-api';
+import { Router } from '../../router';
+import { useProductoCreate } from 'uses/producto/useProductoCreate';
 
 export default defineComponent({
   name: 'ProductoCreate',
   components: {},
-  setup(_, context) {
+  setup() {
 
-    const uuid: string = new UUID().toString();
-    const newProducto: Ref<Producto> = ref({
-      id: uuid,
-      nombre: '',
-      descripcion: '',
-      marca: '',
-      precio: 0
-    });
+    const { newProducto, create } = useProductoCreate();
 
     function algoPasa() {
-      if(Router!=null){
-        Router.push('HolaMundo');
+      if (Router != null) {
+       void( Router.push('HolaMundo'));
       }
     }
 
-    return { newProducto, algoPasa };
+    return { newProducto, algoPasa, create };
   }
 });
 </script>
