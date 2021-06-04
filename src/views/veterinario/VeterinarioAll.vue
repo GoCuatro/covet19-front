@@ -5,14 +5,14 @@
       <q-markup-table v-show="showSimulatedReturnData">
         <thead>
           <tr>
-            <th class="text-center">#</th>
-            <th class="text-center">Nombre</th>
-            <th class="text-center">Cédula</th>
-            <th class="text-center">Correo</th>
-            <th class="text-center">Dirección</th>
-            <th class="text-center">Teléfono</th>
-            <th class="text-center">Tarjeta Profesional</th>
-            <th class="text-center">Fecha de Nacimiento</th>
+            <th class="text-center"><strong>#</strong></th>
+            <th class="text-center"><strong>Nombre</strong></th>
+            <th class="text-center"><strong>Cédula</strong></th>
+            <th class="text-center"><strong>Correo</strong></th>
+            <th class="text-center"><strong>Dirección</strong></th>
+            <th class="text-center"><strong>Teléfono</strong></th>
+            <th class="text-center"><strong>Tarjeta Profesional</strong></th>
+            <th class="text-center"><strong>Fecha de Nacimiento</strong></th>
           </tr>
         </thead>
         <tbody>

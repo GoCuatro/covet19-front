@@ -5,7 +5,7 @@
       <q-input v-model='nombres.apellido' label='Apellidos' />
       <q-input v-model='vet.cedula' label='Cédula' type="number"/>
       <q-input v-model='vet.direccion' label='Dirección' />
-      <q-input v-model='vet.fechaNacimiento' hint='Fecha de Nacimiento' type="date" />
+      <q-input v-model='fecha' hint='Fecha de Nacimiento' type="date" />
       <q-input v-model='vet.telefono' label='Teléfono' type="number"/>
       <q-input v-model='vet.tarjetaProfesional' label='Tarjeta Profesional' />
       <q-input v-model='vet.correo' label='Correo' />
@@ -34,7 +34,7 @@
     <q-separator />
 
     <q-card-actions vertical>
-      <q-btn label='Crear' @click='algoPasa' />
+      <q-btn label='Crear' @click='execute' />
     </q-card-actions>
   </q-card>
 </template>
@@ -51,6 +51,7 @@ export default defineComponent({
   setup() {
     const isPwd: Ref<boolean> = ref(true);
     const isPwd2: Ref<boolean> = ref(true);
+    let fecha: Ref<string> = ref('');
     const { vet, create } = useCreateVeterinario();
 
     let nombres: Ref<Nombres> = ref({
@@ -63,9 +64,9 @@ export default defineComponent({
       password2: ''
     });
 
-    const algoPasa = () => {
+    const execute = () => {
       vet.value.nombre = nombres.value.nombre + ' ' + nombres.value.apellido;
-
+      vet.value.fechaNacimiento = fecha.value.concat(' 00:00:00');
       if(contraseña.value.password1 == contraseña.value.password2) {
         vet.value.password = contraseña.value.password1;
         console.log(vet);
@@ -74,7 +75,7 @@ export default defineComponent({
         throw new Error('La contraseña debe ser igual a la de confirmación');
       }
     };
-    return { isPwd, isPwd2, vet, nombres, contraseña, algoPasa };
+    return { isPwd, isPwd2, vet, nombres, contraseña, execute, fecha };
   }
 });
 </script>

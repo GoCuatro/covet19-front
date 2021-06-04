@@ -9,15 +9,15 @@
       <q-markup-table v-if="agenda != null && agenda.length > 0">
         <thead>
           <tr>
-            <th class="text-center">#</th>
-            <th class="text-center">Diagnostico</th>
-            <th class="text-center">Fecha</th>
-            <th class="text-center">idMascota</th>
+            <th class="text-center"><strong>#</strong></th>
+            <th class="text-center"><strong>Diagnostico</strong></th>
+            <th class="text-center"><strong>Fecha</strong></th>
+            <th class="text-center"><strong>idMascota</strong></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="elem in agenda" :key="elem.id">
-            <td class="text-center">{{elem.id}}</td>
+            <td class="text-center"><a :href="`cita/${elem.id}`">{{elem.id}}</a></td>
             <td class="text-center">{{elem.diagnostico}}</td>
             <td class="text-center">{{elem.fecha}}</td>
             <td class="text-center">{{elem.idMascota}}</td>
@@ -34,20 +34,17 @@
 
 <script lang='ts'>
 import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
-import { Router } from 'src/router';
 import { useVerAgendaVeterinario } from '../../uses/veterinario/useVerAgendaVeterinario';
 
 export default defineComponent({
   name: 'VeterinarioVerAgenda',
   components: {},
   setup() {
-    const { agenda, verAgenda } = useVerAgendaVeterinario();
+    const { agenda } = useVerAgendaVeterinario();
     let visible: Ref<boolean> = ref(false);
     let showSimulatedReturnData: Ref<boolean> = ref(false);
-    let id: Ref<string> = ref(Router?.currentRoute.params.id as string);
 
     onBeforeMount(()=>{
-      //void verAgenda(id.value);
       showLoading();
     });
 
@@ -61,7 +58,7 @@ export default defineComponent({
       }, 3000);
     };
 
-    return { agenda, visible, showSimulatedReturnData, id };
+    return { agenda, visible, showSimulatedReturnData };
   }
 });
 </script>
