@@ -63,8 +63,8 @@ const linksData = [
   {
     title: 'Veterinario',
     caption: '',
-    icon: 'local_hospital',
     link: '/veterinario'
+    icon: 'local_hospital',
   },
   {
     title: 'Discord Chat Channel',
@@ -113,7 +113,7 @@ export default defineComponent({
 
     onBeforeMount(() => {
       let token = Cookies.get('token');
-      if(token != null) {
+      if (token != null) {
         logged.value = true;
       }
     });
