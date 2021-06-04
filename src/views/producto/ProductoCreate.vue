@@ -12,7 +12,7 @@
       <q-separator />
 
       <q-card-actions vertical>
-        <q-btn label='Crear' @click='create' />
+        <q-btn label='Crear' @click='createView' />
       </q-card-actions>
     </q-card>
   </q-page>
@@ -20,8 +20,8 @@
 
 <script lang='ts'>
 import { defineComponent } from '@vue/composition-api';
-import { Router } from '../../router';
 import { useProductoCreate } from 'uses/producto/useProductoCreate';
+import { Notify } from 'quasar';
 
 export default defineComponent({
   name: 'ProductoCreate',
@@ -30,13 +30,14 @@ export default defineComponent({
 
     const { newProducto, create } = useProductoCreate();
 
-    function algoPasa() {
-      if (Router != null) {
-       void( Router.push('HolaMundo'));
+    const createView = async () => {
+      const response = await create();
+      if (response) {
+        Notify.create('Producto creado correctamente');
       }
-    }
+    };
 
-    return { newProducto, algoPasa, create };
+    return { newProducto, createView };
   }
 });
 </script>

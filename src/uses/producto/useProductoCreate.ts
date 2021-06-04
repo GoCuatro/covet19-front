@@ -1,7 +1,7 @@
 import { ref, Ref } from '@vue/composition-api';
 import { Producto } from 'types/Producto';
 import { UUID } from 'uuid-generator-ts';
-import apiProductoCreate from 'services/apiProductoCreate';
+import apiProductoCreate from 'services/producto/apiProductoCreate';
 
 export function useProductoCreate() {
   const newProducto: Ref<Producto> = ref({
@@ -9,7 +9,8 @@ export function useProductoCreate() {
     nombre: '',
     descripcion: '',
     marca: '',
-    precio: 0
+    precio: 0,
+    inventario: 0
   });
 
   function resetProducto() {

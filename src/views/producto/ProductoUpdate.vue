@@ -27,7 +27,7 @@ export default defineComponent({
   components: {},
   props: {
     producto: {
-      type: Producto,
+      type: Object,
       required: true
     },
     index: {
@@ -36,7 +36,7 @@ export default defineComponent({
     }
   },
   setup(props, context) {
-    const { newProducto, update } = useProductoUpdate(props.producto);
+    const { newProducto, update } = useProductoUpdate(<Producto>props.producto);
     const updateView = async () => {
       const response = await update();
       if (response) {
