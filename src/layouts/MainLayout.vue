@@ -63,8 +63,15 @@ const linksData = [
   {
     title: 'Veterinario',
     caption: '',
-    link: '/veterinario'
     icon: 'local_hospital',
+    link: '/veterinario'
+   
+  },
+  {
+    title: 'Productos',
+    caption: '',
+    icon: 'code',
+    link: '/producto'
   },
   {
     title: 'Discord Chat Channel',
@@ -101,6 +108,10 @@ const linksData = [
 import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
 import Login from 'src/views/Login.vue';
 import { Cookies } from 'quasar';
+import { LoginResponse } from 'types/LoginResponse';
+import { LocalStorage, SessionStorage } from 'quasar'
+
+
 
 export default defineComponent({
   name: 'MainLayout',
@@ -118,10 +129,12 @@ export default defineComponent({
       }
     });
 
-    function onLogged(token: string) {
+    function onLogged(response: LoginResponse) {
       logged.value = true;
-      console.log(token);
-      Cookies.set('token', token);
+      Cookies.set('token', response.token);
+      Cookies.set('user', String(response.user.id));
+      LocalStorage.set('user', response.user);
+      SessionStorage.set('user', response.user);
     }
 
     return { leftDrawerOpen, essentialLinks, logged, onLogged };

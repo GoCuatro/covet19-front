@@ -35,7 +35,9 @@ export default defineComponent({
       nombre: '',
       descripcion: '',
       marca: '',
-      precio: 0
+      precio: 0,
+      inventario: 0,
+      habilitado: false,
     });
 
     function algoPasa() {
