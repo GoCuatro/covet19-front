@@ -48,9 +48,12 @@
 
 <script lang='ts'>
 import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
+import { CommonUser } from 'types/CommonUser';
 import { Contrasenas } from '../../types/Contrasenas';
 import { Nombres } from '../../types/Nombres';
 import { useUpdateVeterinario } from '../../uses/veterinario/useUpdateVeterinario';
+import { LocalStorage } from 'quasar';
+import { Router } from 'src/router';
 
 export default defineComponent({
   name: 'VeterinarioUpdate',
@@ -61,7 +64,7 @@ export default defineComponent({
     const isPwd: Ref<boolean> = ref(true);
     const isPwd2: Ref<boolean> = ref(true);
     let fecha: Ref<string> = ref('');
-    const { vet, update } = useUpdateVeterinario();
+    const { vet, update } = useUpdateVeterinario((LocalStorage.getItem('user') as CommonUser).id);
 
     let nombres: Ref<Nombres> = ref({
       nombre: '',
@@ -100,6 +103,7 @@ export default defineComponent({
         }
         console.log(vet);
         void update();
+        Router?.push("/veterinario");
       } else {
         throw new Error('La contraseña debe ser igual a la de confirmación');
       }

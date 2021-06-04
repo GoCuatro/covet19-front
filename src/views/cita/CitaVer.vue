@@ -25,7 +25,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row" v-show="cita.diagnostico !== ''">
             <div class="col-4">
               <strong>Diagnostico: </strong>
             </div>
@@ -57,6 +57,11 @@
         <q-btn label='Editar' @click='editar' />
       </q-card-actions>
 
+      <br>
+      <q-card-actions vertical v-show="!isVet">
+        <q-btn label='Cancelar' @click='deleteCitaV' />
+      </q-card-actions>
+
       <q-card-actions vertical v-show="isVet">
         <q-btn label='Guardar Diagnostico' @click='guardarDiagnostico' />
       </q-card-actions>
@@ -76,6 +81,7 @@ import { LocalStorage } from 'quasar';
 import { CommonUser } from 'types/CommonUser';
 import { useVerCita } from '../../uses/cita/useVerCita';
 import { useAgregarDiagnostico } from '../../uses/cita/useAgregarDiagnostico';
+import { useDeleteCita } from '../../uses/cita/useDeleteCita';
 
 export default defineComponent({
   name: 'CitaVer',
@@ -83,6 +89,7 @@ export default defineComponent({
   setup() {
     const { find , cita } = useVerCita();
     const { agregarDiagnostico, citaD } = useAgregarDiagnostico();
+    const { deleteCita } = useDeleteCita();
     let visible: Ref<boolean> = ref(false);
     let showSimulatedReturnData: Ref<boolean> = ref(false);
     let isVet: Ref<boolean> = ref(false);
@@ -109,12 +116,17 @@ export default defineComponent({
       Router?.push("/cita/".concat("update/").concat(cita.value.id));
     }
 
+    function deleteCitaV() {
+      deleteCita(cita.value.id);
+      Router?.push("user/cita");
+    }
+
     function guardarDiagnostico() {
       citaD.value = cita.value;
       void agregarDiagnostico();
     }
 
-    return { cita, visible, showSimulatedReturnData, id, isVet, editar, guardarDiagnostico };
+    return { cita, visible, showSimulatedReturnData, id, isVet, editar, guardarDiagnostico, deleteCitaV };
   }
 });
 </script>

@@ -4,7 +4,7 @@ import { Ref, ref, onMounted } from '@vue/composition-api';
 import { CommonUser } from '../../types/CommonUser';
 import { LocalStorage } from 'quasar';
 
-export function useUpdateVeterinario() {
+export function useUpdateVeterinario(id: string) {
 
   const vet: Ref<Veterinario> = ref({
     id: '',
@@ -20,8 +20,7 @@ export function useUpdateVeterinario() {
    });
 
     onMounted(async ()=> {
-      const user = LocalStorage.getItem('user') as CommonUser;
-      vet.value = await apiVeterinario.findVeterinario(user.id);
+      vet.value = await apiVeterinario.findVeterinario(id);
       vet.value.agenda = [];
     });
 

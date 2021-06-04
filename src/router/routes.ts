@@ -15,6 +15,7 @@ const routes: RouteConfig[] = [
       { path: 'veterinario/find/:id', component: () => import('views/veterinario/VeterinarioFind.vue')},
       { path: 'veterinario/find/:id/agenda', component: () => import('views/veterinario/VeterinarioVerAgenda.vue')},
       { path: 'cita/:id', component: () => import('views/cita/CitaVer.vue')},
+      { path: 'cita/update/:id', component: () => import('views/cita/CitaUpdate.vue')},
       { path: 'user', component: () => import('views/user/UserPanel.vue') },
       { path: 'user/citas', component: () => import('views/cita/CitaPanel.vue') },
     ]

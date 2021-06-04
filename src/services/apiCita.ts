@@ -1,6 +1,6 @@
 import { Cita } from '../types/Cita';
 import axios from 'axios';
-import { citas_agendar, ver_cita } from '../config/urls';
+import { citas_agendar, cita, cita_ver, cita_update, cita_delete, cita_diagnostico } from '../config/urls';
 import { Cookies } from 'quasar';
 
 export const apiCita = {
@@ -41,31 +41,51 @@ export const apiCita = {
   async createCita(cita: Cita) {
     try {
       console.log(cita);
-      await axios.post(process.env.VUE_APP_BASE_URL.concat(citas_agendar), JSON.parse(JSON.stringify(cita))/*,
-        {headers: {'X-Requested-With': 'XMLHttpRequest', 'Authorization': Cookies.get('token')}}*/);
+      await axios.post(process.env.VUE_APP_BASE_URL.concat(citas_agendar), JSON.parse(JSON.stringify(cita)),
+        {headers: {Authorization: 'Bearer ' + Cookies.get('token')}});
     } catch (e) {
       throw new Error('Error al crear la Cita: '.concat(e));
     }
   },
 
-  async findCita(id: string): Promise<Cita> {
+  async verCita(id: string): Promise<Cita> {
     try {
-      const response = await axios.get(process.env.VUE_APP_BASE_URL.concat(ver_cita).concat('/').concat(id),
-        {headers: {'X-Requested-With': 'XMLHttpRequest', 'Authorization': Cookies.get('token')}});
+      const response = await axios.get(process.env.VUE_APP_BASE_URL.concat(cita).concat(cita_ver).concat(id),
+        {headers: {Authorization: 'Bearer ' + Cookies.get('token')}});
+      console.log(response.data);
       return new Promise((resolve) => {
         resolve(response.data);
       });
-    } catch (e) {
-      throw new Error('Error al buscar el veterinario: '.concat(e));
+    }
+    catch (e) {
+      throw new Error('Error al cargar la Cita: '.concat(e));
     }
   },
 
-  async updateCita(cita: Cita) {
+  async agregarDiagnostico(citaW: Cita) {
     try {
-      await axios.post(process.env.VUE_APP_BASE_URL.concat(ver_cita).concat('/').concat(cita.id).concat('/update'), JSON.parse(JSON.stringify(cita)),
-        {headers: {'X-Requested-With': 'XMLHttpRequest', 'Authorization': Cookies.get('token')}});
+      await axios.post(process.env.VUE_APP_BASE_URL.concat(cita).concat(cita_diagnostico), JSON.parse(JSON.stringify(citaW)),
+        {headers: {Authorization: 'Bearer ' + Cookies.get('token')}});
     } catch (e) {
-      throw new Error('Error al actualizar el veterinario: '.concat(e));
+      throw new Error('Error al agregar el diagnostico: '.concat(e));
+    }
+  },
+
+  async deleteCita(id: string) {
+    try {
+      const response = await axios.get(process.env.VUE_APP_BASE_URL.concat(cita).concat(cita_delete).concat(id),
+        {headers: {Authorization: 'Bearer ' + Cookies.get('token')}});
+    } catch (e) {
+      throw new Error('Error al eliminar la cita: '.concat(e));
+    }
+  },
+
+  async updateCita(citaW: Cita) {
+    try {
+      const response = await axios.post(process.env.VUE_APP_BASE_URL.concat(cita).concat(citaW.id).concat(cita_update), JSON.parse(JSON.stringify(citaW)),
+        {headers: {Authorization: 'Bearer ' + Cookies.get('token')}});
+    } catch (e) {
+      throw new Error('Error al actualizar la cita: '.concat(e));
     }
   },
 

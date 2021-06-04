@@ -71,6 +71,7 @@ export default defineComponent({
         vet.value.password = contraseña.value.password1;
         console.log(vet);
         void create();
+        alert("Se creó exitosamente");
       } else {
         throw new Error('La contraseña debe ser igual a la de confirmación');
       }

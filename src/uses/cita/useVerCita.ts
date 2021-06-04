@@ -1,13 +1,13 @@
 import {Ref, ref } from '@vue/composition-api';
 import { Cita } from '../../types/Cita';
-import { apiCitas } from '../../services/apiCitas';
+import { apiCita } from '../../services/apiCita';
 
 export function useVerCita() {
   const cita: Ref<Cita> = ref(
     {
       id: '',
       diagnostico: '',
-      fechaCita: '',
+      fecha: '',
       idMascota: '',
       idUsuario: '',
       idVeterinario: ''
@@ -15,7 +15,7 @@ export function useVerCita() {
   );
 
   async function find(id: string){
-    cita.value = await apiCitas.verCita(id);
+    cita.value = await apiCita.verCita(id);
   }
 
   return { cita, find };

@@ -1,9 +1,9 @@
-import { apiCitas } from '../../services/apiCitas';
+import { apiCita } from '../../services/apiCita';
 
 export function useDeleteCita() {
 
   async function deleteCita(id: string){
-    await apiCitas.deleteCita(id);
+    await apiCita.deleteCita(id);
   }
 
   return { deleteCita };

@@ -10,7 +10,7 @@ export function useAgendarCita(idUser: string){
     fecha: '',
     idVeterinario: '',
     idMascota: '',
-    idUsuario: idUser
+    idUsuario: idUser,
   });
 
   async function create():Promise<void>{
