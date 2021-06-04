@@ -14,6 +14,10 @@
               <q-card v-else>
                 <q-card-section>
                   <q-item>
+                    <q-item-section side>
+                      <q-avatar color='primary' text-color='white' square>{{ producto.inventario }}</q-avatar>
+                    </q-item-section>
+
                     <q-item-section>
                       <q-item-label>{{ producto.nombre }} -
                         <q-badge color='teal' :label='producto.marca' />
@@ -88,6 +92,7 @@ export default defineComponent({
       }).onOk((data: number) => {
         loadStock(producto, Number(data)).then(value => {
           if (value) {
+            producto.inventario = Number(producto.inventario) + Number(data);
             Notify.create('Inventario cargado exitosamente');
           } else {
             Notify.create('Ocurrio un error');

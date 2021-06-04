@@ -4,5 +4,5 @@ export interface Producto {
   descripcion: string;
   precio: number;
   marca: string;
-  inventario?: number;
+  inventario: number;
 }

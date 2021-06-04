@@ -13,7 +13,7 @@
           />
 
           <q-toolbar-title>
-            Quasar App
+            CoVet - 19
           </q-toolbar-title>
 
           <q-btn label='Cerrar Sesion' @click='logOut' />
