@@ -23,8 +23,8 @@
         </q-tab-panel>
 
         <q-tab-panel name='citas'>
-          <div class='text-h6'>Mis Mascotas</div>
-          en construcción...
+          <div class='text-h6'>Citas Agendadas</div>
+        <citas-agendadas></citas-agendadas>
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
@@ -34,10 +34,11 @@
 <script lang='ts'>
 import { defineComponent, ref } from '@vue/composition-api';
 import AgendarCita from '../cita/AgendarCita.vue';
+import CitasAgendadas from '../cita/CitasAgendadas.vue';
 
 export default defineComponent({
   name: 'CitaPanel',
-  components: { AgendarCita },
+  components: { AgendarCita, CitasAgendadas },
   setup() {
     let tab = ref('agendar');
     return { tab };

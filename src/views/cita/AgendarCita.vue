@@ -19,6 +19,7 @@ import { defineComponent, Ref, ref } from '@vue/composition-api';
 import { useAgendarCita} from '../../uses/cita/useAgendarCita';
 
 export default defineComponent({
+
   name: 'AgendarCita',
   components: {},
   setup() {
@@ -26,7 +27,7 @@ export default defineComponent({
     const { cita, create } = useAgendarCita();
 
     const algoPasa = () => {
-      cita.value.idUsuario; //TO-DO conseguir el id usuario
+       cita.value.idUsuario;
 
         console.log(cita);
         void create();

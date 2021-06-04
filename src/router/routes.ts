@@ -11,7 +11,7 @@ const routes: RouteConfig[] = [
       { path: 'admin', component: () => import('views/admin/AdminPanel.vue') },
       { path: 'veterinario', component: () => import('views/veterinario/VeterinarioPanel.vue') },
       { path: 'user', component: () => import('views/user/UserPanel.vue') },
-      { path: 'user/citas', component: () => import('views/cita/CitaPanel.vue') }
+      { path: 'user/citas', component: () => import('views/cita/CitaPanel.vue') },
       { path: 'producto', component: () => import('views/producto/ProductoPanel.vue') }
     ]
   },

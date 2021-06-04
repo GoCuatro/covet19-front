@@ -107,6 +107,7 @@ const linksData = [
 import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
 import Login from 'src/views/Login.vue';
 import { Cookies } from 'quasar';
+import { LoginResponse } from 'types/LoginResponse';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -125,10 +126,11 @@ export default defineComponent({
 
     });
 
-    function onLogged(token: string) {
+    function onLogged(response: LoginResponse) {
       logged.value = true;
-      console.log(token);
-      Cookies.set('token', token);
+      console.log(response.token);
+      Cookies.set('token', response.token);
+      Cookies.set('user', JSON.stringify(response.user));
     }
 
     return { leftDrawerOpen, essentialLinks, logged, onLogged };
