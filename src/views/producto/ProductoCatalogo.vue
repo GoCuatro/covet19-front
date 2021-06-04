@@ -47,7 +47,7 @@
 import { computed, defineComponent, onMounted } from '@vue/composition-api';
 import { useFilterProducto } from 'uses/producto/useFilterProducto';
 import { useProductoCatalogo } from 'uses/producto/useProductoCatalogo';
-import { Dialog } from 'quasar';
+import { Dialog, Notify } from 'quasar';
 import { Producto } from 'types/Producto';
 
 export default defineComponent({
@@ -74,12 +74,25 @@ export default defineComponent({
         cancel: true,
         persistent: true
       }).onOk((data: number) => {
-        void (loadStock(producto, Number(data)));
+        loadStock(producto, Number(data)).then(value => {
+          if (value) {
+            Notify.create('Inventario cargado exitosamente');
+          } else {
+            Notify.create('Ocurrio un error');
+          }
+        }).catch(() => Notify.create('Ocurrio un error'));
       });
     }
 
     function disableProductoView(producto: Producto) {
-      void(diableProducto(producto));
+      diableProducto(producto).then(value => {
+        if (value) {
+          Notify.create('Producto deshabilitado');
+          void (loadCatalogo());
+        } else {
+          Notify.create('Ocurrio un error');
+        }
+      }).catch(() => Notify.create('Ocurrio un error'));
     }
 
     return { busquedaFilter, filteredCatalogo, getLoadStock, disableProductoView };
