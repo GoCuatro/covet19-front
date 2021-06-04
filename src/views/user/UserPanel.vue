@@ -28,9 +28,9 @@
         </q-tab-panel>
 
         <q-tab-panel name='Mascotas'>
-          <div class='text-h6'>Mis Mascotas</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+         <mascota-all></mascota-all>
         </q-tab-panel>
+
       </q-tab-panels>
     </q-card>
   </q-page>
@@ -39,10 +39,10 @@
 <script lang='ts'>
 import { defineComponent, ref } from '@vue/composition-api';
 import ProductosAllAvaliable from '../producto/ProductoAllAvaliable.vue';
-
+import MascotaAll from '../mascota/MascotaAll.vue';
 export default defineComponent({
   name: 'ProductoPanel',
-  components: { ProductosAllAvaliable },
+  components: { ProductosAllAvaliable, MascotaAll },
   setup() {
     let tab = ref('Tienda');
     return { tab };

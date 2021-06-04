@@ -116,7 +116,6 @@ export default defineComponent({
       if(token != null) {
         logged.value = true;
       }
-      logged.value = true; //TO-DO QUITAR ESTA LINEA DESPUES DE PROBAR
     });
 
     function onLogged(token: string) {
