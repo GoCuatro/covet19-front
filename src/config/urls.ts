@@ -5,4 +5,5 @@ export const veterinarios_update = '/veterinarios/update'
 export const productos_all = '/productos'
 export const mascotas_all = '/mascotas'
 export const mascotas_by_id_user ='/users/findMascotas/'
-
+export const pedidos_by_user_id ='/pedidos/usuarios/'
+export const mascotas_create = '/mascotas/create'

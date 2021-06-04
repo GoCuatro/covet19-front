@@ -9,7 +9,9 @@ export const apiMascota = {
   async getMascotasByIdUser(id: string): Promise<Mascota[]> {
     try {
       const response = await axios.get(process.env.VUE_APP_BASE_URL.concat(mascotas_by_id_user).concat(id),
-        { headers: { 'X-Requested-With': 'XMLHttpRequest', 'Authorization': Cookies.get('token') } });
+        {  headers: {
+          Authorization: 'Bearer ' + Cookies.get('token')
+        } });
       console.log(response.data);
       return new Promise((resolve) => {
         resolve(response.data);

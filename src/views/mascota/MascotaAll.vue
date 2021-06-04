@@ -11,7 +11,7 @@
 
 <script lang='ts'>
 import { defineComponent} from '@vue/composition-api';
-import { useMascotas } from '../../uses/mascotas/useMascota';
+import { useMascotas } from '../../uses/mascota/useMascota';
 
 export default defineComponent({
   name: 'mascotaAll',
@@ -26,7 +26,6 @@ export default defineComponent({
       { name: 'tipo', align: 'center', label: 'Tipo', field: 'tipo', sortable: true },
       { name: 'raza', align: 'center', label: 'Raza', field: 'raza', sortable: true },
     ];
-
     return { columns, mascotas };
   }
 });
