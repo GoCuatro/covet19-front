@@ -40,7 +40,7 @@ export default defineComponent({
 
     function algoPasa() {
       if(Router!=null){
-        Router.push('HolaMundo');
+        void Router.push('HolaMundo');
       }
     }
 

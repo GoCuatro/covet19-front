@@ -2,20 +2,42 @@
   <div>
     <div class="q-pa-md">
 
-      <q-table v-show="showSimulatedReturnData"
-        title="Veterinarios"
-        :data="veterinarios"
-        :columns="columns"
-        row-key="name"
-      />
+      <q-markup-table v-show="showSimulatedReturnData">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Cédula</th>
+            <th class="text-center">Correo</th>
+            <th class="text-center">Dirección</th>
+            <th class="text-center">Teléfono</th>
+            <th class="text-center">Tarjeta Profesional</th>
+            <th class="text-center">Fecha de Nacimiento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="vet in veterinarios" :key="vet.id">
+            <td class="text-center"><a :href="`/veterinario/find/${vet.id}`">{{vet.id}}</a></td>
+            <td class="text-center">{{vet.nombre}}</td>
+            <td class="text-center">{{vet.cedula}}</td>
+            <td class="text-center">{{vet.correo}}</td>
+            <td class="text-center">{{vet.direccion}}</td>
+            <td class="text-center">{{vet.telefono}}</td>
+            <td class="text-center">{{vet.tarjetaProfesional}}</td>
+            <td class="text-center">{{vet.fechaNacimiento}}</td>
+          </tr>
+        </tbody>
 
-      <q-inner-loading :showing="visible">
-        <q-spinner-gears size="50px" color="primary" />
-      </q-inner-loading>
+      </q-markup-table>
 
     </div>
 
-  </div>
+    <q-inner-loading :showing="visible">
+      <q-spinner-gears size="50px" color="primary" />
+    </q-inner-loading>
+
+    </div>
+
 </template>
 
 <script lang='ts'>
@@ -36,25 +58,15 @@ export default defineComponent({
     });
 
     function showLoading () {
-      visible.value = true
-      showSimulatedReturnData.value = false
+      visible.value = true;
+      showSimulatedReturnData.value = false;
       setTimeout(() => {
         visible.value = false
         showSimulatedReturnData.value = true
       }, 3000);
     };
 
-    let columns = [
-      { name: 'nombre', label: 'Nombre', align: 'center', field: 'nombre', sortable: true },
-      { name: 'cedula', align: 'center', label: 'Cédula', field: 'cedula', sortable: true },
-      { name: 'correo', align: 'center', label: 'Correo', field: 'correo', sortable: true },
-      { name: 'direccion', label: 'Dirección', field: 'direccion', sortable: true, align: 'center' },
-      { name: 'telefono', label: 'Teléfono', field: 'telefono', sortable: true, align: 'center' },
-      { name: 'tarjetaProfesional', label: 'Tarjeta Profesional', field: 'tarjetaProfesional', sortable: true, align: 'center' },
-      { name: 'fechaNacimiento', label: 'Fecha de Nacimiento', field: 'fechaNacimiento', align: 'center'},
-    ];
-
-    return { columns, veterinarios, visible, showSimulatedReturnData };
+    return { veterinarios, visible, showSimulatedReturnData };
   }
 });
 </script>

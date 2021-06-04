@@ -1,6 +1,6 @@
 import { Veterinario } from '../../types/Veterinario';
 import { apiVeterinario } from '../../services/apiVeterinario';
-import {Ref, ref, onBeforeMount } from '@vue/composition-api';
+import {Ref, ref } from '@vue/composition-api';
 
 export function useFindVeterinario() {
   const veterinario: Ref<Veterinario> = ref(
@@ -13,7 +13,8 @@ export function useFindVeterinario() {
       nombre: '',
       password: '',
       telefono: 0,
-      tarjetaProfesional: ''
+      tarjetaProfesional: '',
+      agenda: []
     }
   );
 

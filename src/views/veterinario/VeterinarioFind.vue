@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="q-pa-md">
+    <div class="q-pa-md" v-show="showSimulatedReturnData">
+
+      <div class="row text-center">
+        <h4>Veterinario con id: {{id}}</h4>
+      </div>
 
       <div class="row">
         <div class="col-4">
@@ -66,41 +70,42 @@
       </div>
 
     </div>
-
+    <q-inner-loading :showing="visible">
+        <q-spinner-gears size="50px" color="primary" />
+    </q-inner-loading>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, onBeforeMount, Ref, ref } from '@vue/composition-api';
+import { Router } from 'src/router';
 import { useFindVeterinario } from '../../uses/veterinario/useFindVeterinario';
-import useRouter from 'vue-router';
 
 export default defineComponent({
   name: 'VeterinarioFind',
   components: {},
-  setup(_, context) {
+  setup() {
     const { find, veterinario } = useFindVeterinario();
-    //let route = this.$router.params.id;
     let visible: Ref<boolean> = ref(false);
     let showSimulatedReturnData: Ref<boolean> = ref(false);
-    let id: Ref<string> = ref("e755f4fd-f3d4-405d-80fe-888da35f9d82");
+    let id: Ref<string> = ref(Router?.currentRoute.params.id as string);
 
     onBeforeMount(()=>{
-      //id.value = this.$router.params.id;
       void find(id.value);
-      //showLoading();
+      showLoading();
     });
 
     function showLoading () {
-      visible.value = true
-      showSimulatedReturnData.value = false
+      visible.value = true;
+      showSimulatedReturnData.value = false;
       setTimeout(() => {
         visible.value = false
         showSimulatedReturnData.value = true
+        console.log(veterinario);
       }, 3000);
     };
 
-    return { veterinario, visible, showSimulatedReturnData };
+    return { veterinario, visible, showSimulatedReturnData, id };
   }
 });
 </script>

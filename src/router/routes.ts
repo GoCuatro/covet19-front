@@ -9,11 +9,10 @@ const routes: RouteConfig[] = [
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'admin', component: () => import('views/admin/AdminPanel.vue') },
-      { path: 'producto', component: () => import('views/producto/ProductoPanel.vue') }
-      { path: 'veterinario', component: () => import('views/veterinario/VeterinarioPanel.vue'),
-
-      },
-      { path: 'hola', component: () => import('views/veterinario/VeterinarioFind.vue') },
+      { path: 'producto', component: () => import('views/producto/ProductoPanel.vue') },
+      { path: 'veterinario', component: () => import('views/veterinario/VeterinarioPanel.vue')},
+      { path: 'veterinario/find/:id', component: () => import('views/veterinario/VeterinarioFind.vue')},
+      { path: 'veterinario/find/:id/agenda', component: () => import('views/veterinario/VeterinarioVerAgenda.vue')},
     ]
   },
 

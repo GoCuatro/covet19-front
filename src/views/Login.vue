@@ -28,6 +28,8 @@
 import { defineComponent, Ref, ref } from '@vue/composition-api';
 import { LoginInfo } from 'src/types/LoginInfo';
 import axios from 'axios';
+import { LoginResponse } from '../types/LoginResponse';
+import { resolve } from 'dns';
 
 export default defineComponent({
   name: 'Login',
@@ -42,7 +44,8 @@ export default defineComponent({
     const login = async (loginInfo: LoginInfo) => {
       try {
         const response = await axios.post('http://localhost:8090/login', JSON.parse(JSON.stringify(loginInfo)));
-        context.emit('logged', response.data);
+        let result: LoginResponse = response.data as LoginResponse;
+        context.emit('logged', result);
       } catch (e) {
         console.log(e);
       }

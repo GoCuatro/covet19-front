@@ -13,7 +13,8 @@ export function useCreateVeterinario() {
     nombre: '',
     password: '',
     telefono: 0,
-    tarjetaProfesional: ''
+    tarjetaProfesional: '',
+    agenda: []
    });
 
   async function create(): Promise<void>{

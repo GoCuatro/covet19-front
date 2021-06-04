@@ -56,10 +56,6 @@ module.exports = configure(function(/* ctx */) {
         "VUE_APP_BASE_URL": "http://localhost:8090"
       },
 
-      env: {
-        'VUE_APP_BASE_URL': 'http://localhost:8090'
-      },
-
       // transpile: false,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)

@@ -7,19 +7,6 @@ export function useVeterinarios() {
 
   onBeforeMount(async () => {
     veterinarios.value = await apiVeterinario.getVeterinarios();
-    /* veterinarios.value = [
-      {
-        id: 'dftgyh',
-        cedula: 23456,
-        correo: 'fesgrdhghv',
-        direccion: 'djhsgfd',
-        fechaNacimiento: '03/06/2020',
-        nombre: 'hgsd',
-        password: 'hdsg',
-        telefono: 45543,
-        tarjetaProfesional: 'hgdfsa'
-      }
-    ]; */
   });
 
   return { veterinarios };
