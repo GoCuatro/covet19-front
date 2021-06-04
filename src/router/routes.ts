@@ -7,7 +7,10 @@ const routes: RouteConfig[] = [
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'admin', component: () => import('views/admin/AdminPanel.vue') },
-      { path: 'veterinario', component: () => import('views/veterinario/VeterinarioPanel.vue') },
+      { path: 'veterinario', component: () => import('views/veterinario/VeterinarioPanel.vue'),
+
+      },
+      { path: 'hola', component: () => import('views/veterinario/VeterinarioFind.vue') },
     ]
   },
 
